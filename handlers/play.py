@@ -695,8 +695,6 @@ async def play(_, message: Message):
                 title = results[0]["title"][:65]
                 thumbnail = results[0]["thumbnails"][0]
                 thumb_name = f"{title}.jpg"
-                ctitle = message.chat.title
-                ctitle = await CHAT_TITLE(ctitle)
                 thumb = requests.get(thumbnail, allow_redirects=True)
                 open(thumb_name, "wb").write(thumb.content)
                 duration = results[0]["duration"]
@@ -724,7 +722,7 @@ async def play(_, message: Message):
                 ]
             )
             message.from_user.first_name
-            await generate_cover(title, thumbnail, ctitle)
+            await generate_cover(requested_by, title, views, duration, thumbnail)
             file_path = await converter.convert(youtube.download(url))
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.pytgcalls.active_calls:
@@ -824,7 +822,7 @@ async def lol_cb(b, cb):
             [InlineKeyboardButton("• Cʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}")],
         ]
     )
-    await generate_cover(title, thumbnail, ctitle)
+    await generate_cover(requested_by, title, views, duration, thumbnail)
     file_path = await converter.convert(youtube.download(url))
     if chat_id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(chat_id, file=file_path)
@@ -973,7 +971,7 @@ async def ytplay(_, message: Message):
         ]
     )
     message.from_user.first_name
-    await generate_cover(title, thumbnail, ctitle)
+    await generate_cover(requested_by, title, views, duration, thumbnail)
     file_path = await converter.convert(youtube.download(url))
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.pytgcalls.active_calls:
