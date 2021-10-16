@@ -17,10 +17,9 @@ from pyrogram.errors import FloodWait, MessageNotModified
 from pyrogram.types import Message
 from youtube_search import YoutubeSearch
 from youtube_dl import YoutubeDL
+from youtubesearchpython import SearchVideos
 
-from config import BOT_USERNAME as bn
-from helpers.decorators import humanbytes
-from helpers.filters import command
+from config import BOT_USERNAME, OWNER_NAME as b
 
 
 ydl_opts = {
