@@ -1,7 +1,7 @@
 {
     "name": "teb Music Bot",
-    "logo": "https://telegra.ph/file/6447deaec9fc365cd6d1e.jpg",
-    "description": "zen Music allow you to stream music trought the telegram voice chat feature.",
+    "logo": "https://telegra.ph/file/7810c1a22a0641cff2c41.jpg",
+    "description": "Kaneki Music allow you to stream music trought the telegram voice chat feature.",
     "keywords": ["music", "voice chat", "telegram"],
     "repository": "https://github.com/erickskynet/TebKaneki",
     "stack": "container",
