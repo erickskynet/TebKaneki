@@ -624,8 +624,8 @@ async def play(_, message: Message):
                 ],
             ]
         )
-        message.from_user.first_name
-        await generate_cover(title, thumbnail, ctitle)
+        requested_by = message.from_user.first_name
+        await generate_cover(requested_by, title, views, duration, thumbnail)
         file_path = await converter.convert(youtube.download(url))
     else:
         query = ""
@@ -635,7 +635,7 @@ async def play(_, message: Message):
         ydl_opts = {"format": "bestaudio[ext=m4a]"}
 
         try:
-            results = YoutubeSearch(query, max_results=5).to_dict()
+            results = YoutubeSearch(query, max_results=6).to_dict()
         except:
             await lel.edit(
                 "😕 **song name not detected**\n\n» **please provide the name of the song you want to play**"
@@ -645,8 +645,8 @@ async def play(_, message: Message):
             toxxt = "\n"
             j = 0
             user = user_name
-            emojilist = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
-            while j < 5:
+            emojilist = ["❶","❷","❸","❹","❺","❻"]
+            while j < 6:
                 toxxt += f"{emojilist[j]} [{results[j]['title'][:25]}...](https://youtube.com{results[j]['url_suffix']})\n"
                 toxxt += f" ├ 💡 **Duration** - `{results[j]['duration']}`\n"
                 toxxt += f" └ ⚡ __Powered by {BOT_NAME}__\n\n"
@@ -655,34 +655,37 @@ async def play(_, message: Message):
                 [
                     [
                         InlineKeyboardButton(
-                            "1️⃣", callback_data=f"plll 0|{query}|{user_id}"
+                            "❶", callback_data=f"plll 0|{query}|{user_id}"
                         ),
                         InlineKeyboardButton(
-                            "2️⃣", callback_data=f"plll 1|{query}|{user_id}"
+                            "❷", callback_data=f"plll 1|{query}|{user_id}"
                         ),
                         InlineKeyboardButton(
-                            "3️⃣", callback_data=f"plll 2|{query}|{user_id}"
+                            "❸", callback_data=f"plll 2|{query}|{user_id}"
                         ),
                     ],
                     [
                         InlineKeyboardButton(
-                            "4️⃣", callback_data=f"plll 3|{query}|{user_id}"
+                            "❹", callback_data=f"plll 3|{query}|{user_id}"
                         ),
                         InlineKeyboardButton(
-                            "5️⃣", callback_data=f"plll 4|{query}|{user_id}"
+                            "❺", callback_data=f"plll 4|{query}|{user_id}"
+                        ),
+                        InlineKeyboardButton(
+                            "❻", callback_data=f"plll 5|{query}|{user_id}"
                         ),
                     ],
                     [InlineKeyboardButton(text="🗑 Close", callback_data="cls")],
                 ]
             )
             await message.reply_photo(
-                photo=f"{THUMB_IMG}", caption=toxxt, reply_markup=keyboard
+                photo=f"{THUMB_IMG}",caption=toxxt, reply_markup=keyboard
             )
 
             await lel.delete()
-            # veez project
+            # Teb project
             return
-            # veez project
+            # Teb project
         except:
             await lel.edit("__no more results to choose, starting to playing...__")
 
@@ -692,6 +695,8 @@ async def play(_, message: Message):
                 title = results[0]["title"][:65]
                 thumbnail = results[0]["thumbnails"][0]
                 thumb_name = f"{title}.jpg"
+                ctitle = message.chat.title
+                ctitle = await CHAT_TITLE(ctitle)
                 thumb = requests.get(thumbnail, allow_redirects=True)
                 open(thumb_name, "wb").write(thumb.content)
                 duration = results[0]["duration"]
@@ -703,6 +708,8 @@ async def play(_, message: Message):
                 )
                 print(str(e))
                 return
+            dlurl=url
+            dlurl=dlurl.replace("youtube","youtubepp")
             keyboard = InlineKeyboardMarkup(
                 [
                     [
