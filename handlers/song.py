@@ -31,7 +31,6 @@ ydl_opts = {
         'quite':True
 }
 
-
 @Client.on_message(filters.command("song") & ~filters.edited)
 def song(_, message):
     query = " ".join(message.command[1:])
