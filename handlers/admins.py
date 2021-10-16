@@ -10,7 +10,6 @@ from helpers.filters import command, other_filters
 from callsmusic import callsmusic
 from callsmusic.queues import queues
 
-
 @Client.on_message(filters.command("reload"))
 async def update_admin(client, message: Message):
     chat_id = get_chat_id(message.chat)
