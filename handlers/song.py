@@ -210,7 +210,6 @@ def time_to_seconds(times):
     stringt = str(times)
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
 
-
 @Client.on_message(
     filters.command(["vsong", "video"]) & ~filters.edited
 )
