@@ -2,7 +2,6 @@
 
 *** Music bot yang dapat memutar di obrolan suara  group telegram anda.
 <p align="center"><a href="https://t.me/Cyberhunt27"><img src="https://telegra.ph/file/7810c1a22a0641cff2c41.jpg" width="300"></a></p>
-
 </p>
 
 <h3>Requirements 📖</h3>
@@ -47,8 +46,6 @@ TAP INI: [![GenerateString](https://img.shields.io/badge/repl.it-generateString-
 *** pm-izin
 - `.yes` - menyetujui pengguna untuk mengirim pesan ke asisten
 - `.no` - menolak pengguna untuk mengirim pesan ke asisten
-
-** 💠 Mendukung Pencarian Sebaris 💠
 
 *** Deploy To Heroku 💠</h4>
 
