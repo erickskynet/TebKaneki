@@ -17,32 +17,32 @@
         "BOT_NAME": {
             "description": "your music bot name.",
             "required": false,
-            "value": ""
+            "value": "𝗧𝗲𝗯 𝗞𝗮𝗻𝗲𝗸𝗶 𝗠𝘂𝘀𝗶𝗰"
         },
         "BOT_USERNAME": {
             "description": "fill with your bot username without @",
             "required": true,
-            "value": "zenmusicbot"
+            "value": "TebErickMusik_bot"
         },
         "ASSISTANT_NAME": {
             "description": "fill with the assistant username without @",
             "required": true,
-            "value": "zenasisstant"
+            "value": "TebAssistentMusicBot"
         },
         "BG_IMAGE": {
             "description": "fill with your link costum background image",
             "required": false,
-            "value": "https://telegra.ph/file/9261d704b3608f2882a88.png"
+            "value": "https://telegra.ph/file/7810c1a22a0641cff2c41.jpg"
         },
         "THUMB_IMG": {
             "description": "fill with costum thumbnail image it's different with bg_image",
             "required": false,
-            "value": "https://telegra.ph/file/79d247eac00f3c9d2dfae.jpg"
+            "value": "https://telegra.ph/file/a1253014959e7493333aa.jpg"
         },
         "OWNER_NAME": {
             "description": "fill with your username without @",
             "required": false,
-            "value": "zaenmad"
+            "value": "Cyberhunt27"
         },
         "API_ID": {
             "description": "your App ID from my.telegram.org/apps",
@@ -59,7 +59,7 @@
         "DURATION_LIMIT": {
             "description": "max durasi untuk video yang diunduh (dalam menit).",
             "required": true,
-            "value": "60"
+            "value": "180"
         },
         "PMPERMIT": {
             "description": "pm-permit for assistant.",
@@ -69,12 +69,12 @@
         "UPDATES_CHANNEL": {
             "description": "isi dengan username channel kamu, jika tidak punya lewati saja",
             "required": false,
-            "value": "zen_update"
+            "value": "TebMusicUpdate"
         },
         "GROUP_SUPPORT": {
             "description": "isi dengan username grup kamu, jika tidak punya skip saja",
             "required": false,
-            "value": "kaizensupport"
+            "value": "TebBotSupport"
         }
     },
     "buildpacks": [
