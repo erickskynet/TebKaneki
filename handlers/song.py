@@ -213,7 +213,7 @@ def time_to_seconds(times):
 
 
 @Client.on_message(
-    filters.command(["vsong", "video"])) & ~filters.edited
+    filters.command(["vsong", "video"]) & ~filters.edited
 )
 async def vsong(client, message):
     ydl_opts = {
