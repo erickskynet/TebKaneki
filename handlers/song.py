@@ -32,7 +32,7 @@ ydl_opts = {
 }
 
 
-@Client.on_messageon_message(filters.command("song") & ~filters.edited)
+@Client.on_message(filters.command("song") & ~filters.edited)
 def song(_, message):
     query = " ".join(message.command[1:])
     m = message.reply("🔎 finding song...")
