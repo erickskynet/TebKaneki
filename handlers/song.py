@@ -19,8 +19,8 @@ from youtube_search import YoutubeSearch
 from youtube_dl import YoutubeDL
 from youtubesearchpython import SearchVideos
 
-from config import BOT_USERNAME, OWNER_NAME as b
-from helpers.filters import command
+from config import BOT_USERNAME, OWNER_NAME as bn
+from helpers.filters import command as bn
 
 ydl_opts = {
         'format':'best',
