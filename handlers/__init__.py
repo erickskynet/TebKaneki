@@ -1,6 +1,6 @@
 __version__ = "0.6.8"
 
-import heroku3
+import heroku
 
 from functools import wraps
 from config import HEROKU_API_KEY, HEROKU_APP_NAME
