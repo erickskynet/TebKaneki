@@ -71,14 +71,6 @@
             "required": false,
             "value": "TebMusicUpdate"
         },
-        "HEROKU_API_KEY": {
-            "description": "your heroku apikey",
-            "required": true
-        },
-        "HEROKU_APP_NAME": {
-            "description": "Your heroku appname",
-            "required": true
-        },
         "GROUP_SUPPORT": {
             "description": "isi dengan username grup kamu, jika tidak punya skip saja",
             "required": false,
