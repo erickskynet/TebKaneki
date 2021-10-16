@@ -1,37 +1,44 @@
 import os
-import json
-import ffmpeg
-import aiohttp
-import aiofiles
-import asyncio
-import requests
-import converter
-from os import path
 from asyncio.queues import QueueEmpty
-from pyrogram import Client, filters
+from os import path
 from typing import Callable
-from helpers.channelmusic import get_chat_id
-from callsmusic import callsmusic
-from callsmusic.queues import queues
-from helpers.admins import get_administrators
-from youtube_search import YoutubeSearch
-from callsmusic.callsmusic import client as USER
-from pyrogram.errors import UserAlreadyParticipant
-from downloaders import youtube
 
-from config import que, THUMB_IMG, DURATION_LIMIT, BOT_USERNAME, BOT_NAME, UPDATES_CHANNEL, GROUP_SUPPORT, ASSISTANT_NAME
-from helpers.filters import command, other_filters
-from helpers.decorators import authorized_users_only
-from helpers.gets import get_file_name, get_url
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, Voice
+import aiofiles
+import aiohttp
+import converter
+import ffmpeg
+import requests
 from cache.admins import admins as a
-from PIL import Image, ImageFont, ImageDraw
+from callsmusic import callsmusic
+from callsmusic.callsmusic import client as USER
+from callsmusic.queues import queues
+from config import (
+    ASSISTANT_NAME,
+    BOT_NAME,
+    BOT_USERNAME,
+    DURATION_LIMIT,
+    GROUP_SUPPORT,
+    THUMB_IMG,
+    UPDATES_CHANNEL,
+    que,
+)
+from downloaders import youtube
+from helpers.admins import get_administrators
+from helpers.channelmusic import get_chat_id
+from helpers.chattitle import CHAT_TITLE
+from helpers.decorators import authorized_users_only
+from helpers.filters import command, other_filters
+from helpers.gets import get_file_name
+from PIL import Image, ImageDraw, ImageFont
+from pyrogram import Client, filters
+from pyrogram.errors import UserAlreadyParticipant
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from youtube_search import YoutubeSearch
 
 aiohttpsession = aiohttp.ClientSession()
 chat_id = None
 DISABLED_GROUPS = []
 useer ="NaN"
-
 
 def cb_admin_check(func: Callable) -> Callable:
     async def decorator(client, cb):
@@ -41,8 +48,7 @@ def cb_admin_check(func: Callable) -> Callable:
         else:
             await cb.answer("you not allowed to do this!", show_alert=True)
             return
-    return decorator                                                                       
-                                          
+    return decorator                                                                                                               
                                                                                     
 def transcode(filename):
     ffmpeg.input(filename).output(
@@ -715,7 +721,7 @@ async def lol_cb(b, cb):
     if cb.from_user.id != useer_id:
         await cb.answer("💡 sorry, this is not for you !", show_alert=True)
         return
-    await cb.message.edit("🔁 **processing...**")
+   # await cb.message.edit("🔁 **processing...**")
     x = int(x)
     try:
         cb.message.reply_to_message.from_user.first_name
@@ -742,8 +748,6 @@ async def lol_cb(b, cb):
         pass
     try:
         thumb_name = f"{title}.jpg"
-        ctitle = cb.message.chat.title
-        ctitle = await CHAT_TITLE(ctitle)
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, "wb").write(thumb.content)
     except Exception as e:
@@ -758,7 +762,8 @@ async def lol_cb(b, cb):
             [InlineKeyboardButton("• Cʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}")],
         ]
     )
-    await generate_cover(title, thumbnail, ctitle)
+    requested_by = useer_name
+    await generate_cover(requested_by, title, views, duration, thumbnail)
     file_path = await converter.convert(youtube.download(url))
     if chat_id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(chat_id, file=file_path)
