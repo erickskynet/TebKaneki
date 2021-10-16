@@ -704,61 +704,62 @@ async def lol_cb(b, cb):
     global que
     cbd = cb.data.strip()
     chat_id = cb.message.chat.id
-    typed_=cbd.split(None, 1)[1]
+    typed_ = cbd.split(None, 1)[1]
     try:
-        x,query,useer_id = typed_.split("|")      
+        x, query, useer_id = typed_.split("|")
     except:
-        await cb.message.edit("❌ song not found")
+        await cb.message.edit(
+            "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**")
         return
     useer_id = int(useer_id)
     if cb.from_user.id != useer_id:
-        await cb.answer("anda bukan orang yang meminta untuk memutar lagu ini!", show_alert=True)
+        await cb.answer("💡 sorry, this is not for you !", show_alert=True)
         return
-    await cb.message.edit("🔁**Menghubungkan...**")
-    x=int(x)
+    await cb.message.edit("🔁 **processing...**")
+    x = int(x)
     try:
-        useer_name = cb.message.reply_to_message.from_user.first_name
+        cb.message.reply_to_message.from_user.first_name
     except:
-        useer_name = cb.message.from_user.first_name
-    results = YoutubeSearch(query, max_results=6).to_dict()
-    resultss=results[x]["url_suffix"]
-    title=results[x]["title"][:65]
-    thumbnail=results[x]["thumbnails"][0]
-    duration=results[x]["duration"]
-    views=results[x]["views"]
+        cb.message.from_user.first_name
+    results = YoutubeSearch(query, max_results=5).to_dict()
+    resultss = results[x]["url_suffix"]
+    title = results[x]["title"][:65]
+    thumbnail = results[x]["thumbnails"][0]
+    duration = results[x]["duration"]
+    results[x]["views"]
     url = f"https://www.youtube.com{resultss}"
-    try:    
+    try:
         secmul, dur, dur_arr = 1, 0, duration.split(":")
-        for i in range(len(dur_arr)-1, -1, -1):
-            dur += (int(dur_arr[i]) * secmul)
+        for i in range(len(dur_arr) - 1, -1, -1):
+            dur += int(dur_arr[i]) * secmul
             secmul *= 60
         if (dur / 60) > DURATION_LIMIT:
-             await cb.message.edit(f"❌ Lagu dengan durasi lebih dari `{DURATION_LIMIT}` menit tidak dapat diputar.")
-             return
+            await cb.message.edit(
+                f"❌ **music with duration more than** `{DURATION_LIMIT}` **minutes, can't play !**"
+            )
+            return
     except:
         pass
     try:
-        thumb_name = f"thumb{title}.jpg"
+        thumb_name = f"{title}.jpg"
+        ctitle = cb.message.chat.title
+        ctitle = await CHAT_TITLE(ctitle)
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, "wb").write(thumb.content)
     except Exception as e:
         print(e)
         return
-    dlurl=url
-    dlurl=dlurl.replace("youtube", "youtubepp")
     keyboard = InlineKeyboardMarkup(
+        [
             [
-                [
-                    InlineKeyboardButton("⏺️ ᴍᴇɴᴜ", callback_data="menu"),
-                    InlineKeyboardButton("🗑️ ᴄʟᴏꜱᴇ", callback_data="cls"),
-                ],[
-                    InlineKeyboardButton("⚙️ ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}")
-                ],
-            ]
+                InlineKeyboardButton("• Mᴇɴᴜ", callback_data="menu"),
+                InlineKeyboardButton("• Cʟᴏsᴇ", callback_data="cls"),
+            ],
+            [InlineKeyboardButton("• Cʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}")],
+        ]
     )
-    requested_by = useer_name
-    await generate_cover(requested_by, title, views, duration, thumbnail)
-    file_path = await converter.convert(youtube.download(url))  
+    await generate_cover(title, thumbnail, ctitle)
+    file_path = await converter.convert(youtube.download(url))
     if chat_id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(chat_id, file=file_path)
         qeue = que.get(chat_id)
@@ -771,13 +772,12 @@ async def lol_cb(b, cb):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         await cb.message.delete()
-        await b.send_photo(chat_id,
-        photo="final.png",
-        caption=f"🔖 **Judul:** [{title[:35]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Antrian Ke `{position}`\n" \
-               +f"🌹 **Permintaan:** {r_by.mention}",
-        reply_markup=keyboard,
+        await b.send_photo(
+            chat_id,
+            photo="final.png",
+            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention}",
+            reply_markup=keyboard,
         )
-        os.remove("final.png")
     else:
         que[chat_id] = []
         qeue = que.get(chat_id)
@@ -791,10 +791,13 @@ async def lol_cb(b, cb):
         qeue.append(appendable)
         callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         await cb.message.delete()
-        await b.send_photo(chat_id,
-        photo="final.png",
-        caption=f"🔖 **Judul:** [{title[:65]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** `Sedang Memutar`\n" \
-               +f"🌹 **Permintaan:** {r_by.mention}",
-        reply_markup=keyboard,
+        await b.send_photo(
+            chat_id,
+            photo="final.png",
+            caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+            + f"🎧 **Request by:** {r_by.mention}",
+            reply_markup=keyboard,
         )
+    if path.exists("final.png"):
         os.remove("final.png")
+
