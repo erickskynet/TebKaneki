@@ -1,7 +1,7 @@
 <h2 align="centre">☣️☢️ Teb Kaneki Music Bot ☢️☣️</h2>
 
 *** Music bot yang dapat memutar di obrolan suara  group telegram anda.
-<p align="center"><a href="https://t.me/Cyberhunt27"><img src="https://telegra.ph/file/102b3344faea1dfa30030.jpg" width="300"></a></p>
+<p align="center"><a href="https://t.me/Cyberhunt27"><img src="https://telegra.ph/file/7810c1a22a0641cff2c41.jpg" width="300"></a></p>
 
 </p>
 
@@ -53,7 +53,7 @@ TAP INI: [![GenerateString](https://img.shields.io/badge/repl.it-generateString-
 *** Deploy To Heroku 💠</h4>
 
 <p align="left">
-  <a href="https://heroku.com/deploy?template=https://github.com/Jancukmu/KaizenMusic">
+  <a href="https://heroku.com/deploy?template=https://github.com/erickskynet/TebKaneki">
      <img height="30px" src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku">
   </a>
 
