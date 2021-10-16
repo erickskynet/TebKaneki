@@ -53,7 +53,7 @@ TAP INI: [![GenerateString](https://img.shields.io/badge/repl.it-generateString-
 *** Deploy To Heroku 💠</h4>
 
 <p align="left">
-  <a href="https://heroku.com/deploy?template=https://github.com/erickskynet/TebKaneki.git">
+  <a href="https://heroku.com/deploy?template=https://github.com/Jancukmu/KaizenMusic">
      <img height="30px" src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku">
   </a>
 
