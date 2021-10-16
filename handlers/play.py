@@ -601,8 +601,6 @@ async def play(_, message: Message):
             title = results[0]["title"][:65]
             thumbnail = results[0]["thumbnails"][0]
             thumb_name = f"{title}.jpg"
-            ctitle = message.chat.title
-            ctitle = await CHAT_TITLE(ctitle)
             thumb = requests.get(thumbnail, allow_redirects=True)
             open(thumb_name, "wb").write(thumb.content)
             duration = results[0]["duration"]
@@ -695,8 +693,6 @@ async def play(_, message: Message):
                 title = results[0]["title"][:65]
                 thumbnail = results[0]["thumbnails"][0]
                 thumb_name = f"{title}.jpg"
-                ctitle = message.chat.title
-                ctitle = await CHAT_TITLE(ctitle)
                 thumb = requests.get(thumbnail, allow_redirects=True)
                 open(thumb_name, "wb").write(thumb.content)
                 duration = results[0]["duration"]
@@ -808,8 +804,6 @@ async def lol_cb(b, cb):
         pass
     try:
         thumb_name = f"{title}.jpg"
-        ctitle = cb.message.chat.title
-        ctitle = await CHAT_TITLE(ctitle)
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, "wb").write(thumb.content)
     except Exception as e:
@@ -939,8 +933,6 @@ async def ytplay(_, message: Message):
         title = results[0]["title"][:65]
         thumbnail = results[0]["thumbnails"][0]
         thumb_name = f"{title}.jpg"
-        ctitle = message.chat.title
-        ctitle = await CHAT_TITLE(ctitle)
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, "wb").write(thumb.content)
         duration = results[0]["duration"]
